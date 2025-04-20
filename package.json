@@ -1,0 +1,15 @@
+{
+  "name": "e-commerce-app",
+  "version": "1.0.0",
+  "description": "Codecademy portfolio project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Odiovock",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.14.1"
+  }
+}
