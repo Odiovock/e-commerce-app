@@ -25,10 +25,10 @@ app.get('/', (req, res) => {
     }
 });
 
-app.use('/users', userRoutes);
-app.use('/orders', orderRoutes);
-app.use('/cart', cartRoutes);
-app.use('/products', productRoutes);
+// app.use('/users', userRoutes);
+// app.use('/orders', orderRoutes);
+// app.use('/cart', cartRoutes);
+// app.use('/products', productRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
