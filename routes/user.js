@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../db');
-const {bcryptEntry} = require('../utils');
 
 const userRouter = express.Router();
 
@@ -34,21 +33,7 @@ userRouter.delete("/:id", async (req, res) => {
 
 });
 
-userRouter.post("/register", async (req, res) => {
-    const {first_name, last_name, email, phone, password} = req.body;
-    const encryptedPassword = await bcryptEntry(password);
 
-    try {
-        const result = await pool.query(
-            "INSERT INTO users (first_name, last_name, email, phone, password) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-            [first_name, last_name, email, phone, encryptedPassword]
-        );
-        console.log(result);
-        res.status(201).send(`User added with ID: ${result.rows[0].id}`);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-});
 
 module.exports = userRouter;
 
