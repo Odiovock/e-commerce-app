@@ -25,7 +25,7 @@ app.get('/', (req, res) => {
     }
 });
 
-// app.use('/users', userRoutes);
+app.use('/users', userRoutes);
 // app.use('/orders', orderRoutes);
 // app.use('/cart', cartRoutes);
 // app.use('/products', productRoutes);
