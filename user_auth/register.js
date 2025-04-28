@@ -6,11 +6,6 @@ const {bcryptEncryption} = require('../utils');
 const registerRouter = express.Router();
 
 registerRouter.use(bodyParser.json());
-registerRouter.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
-);
 
 registerRouter.post("/", async (req, res) => {
     const {first_name, last_name, email, phone, password} = req.body;

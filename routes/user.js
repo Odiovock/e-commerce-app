@@ -5,11 +5,6 @@ const pool = require('../db');
 const userRouter = express.Router();
 
 userRouter.use(bodyParser.json());
-userRouter.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
-);
 
 userRouter.get("/", async (req, res) => {
     try {

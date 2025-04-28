@@ -32,7 +32,7 @@ app.use('/users', userRoutes);
 app.use("/login", loginRoutes);
 // app.use('/orders', orderRoutes);
 // app.use('/cart', cartRoutes);
-// app.use('/products', productRoutes);
+app.use('/products', productRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

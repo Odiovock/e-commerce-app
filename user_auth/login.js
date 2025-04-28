@@ -5,12 +5,6 @@ const { bcryptDecription, findUserWithEmail } = require("../utils");
 const loginRoute = express.Router();
 
 loginRoute.use(bodyParser.json());
-loginRoute.use(
-    bodyParser.urlencoded({
-        extended: true
-    })
-);
-
 
 loginRoute.post("/", async (req, res) => {
     const {email, password} = req.body;
