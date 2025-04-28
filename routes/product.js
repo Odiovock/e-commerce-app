@@ -29,7 +29,31 @@ productRoutes.get("/:id", async (req, res) => {
 });
 
 productRoutes.put("/:id", async (req, res) => {
+    const params = req.body;
 
+    let query = "UPDATE products SET ";
+    let i = 1;
+    for (const param in params) {
+        if (param === "name" || param === "description" || param === "price" || param === "sku")
+        {
+            if (i > 1)  {
+                query += ",";
+            }
+            query += `${param}=$${i} `;
+            i++;
+        }
+    }
+    query += `WHERE id=$${i}`;
+
+    const paramList = [...Object.values(params), req.params.id];
+
+    try {
+        const result = await pool.query(query, paramList);
+        res.status(204);
+    } catch (error) {
+        console.error(error.toString());
+        res.status(500).send("An error as occured");
+    }
 });
 
 productRoutes.delete("/:id", async (req, res) => {
@@ -37,15 +61,17 @@ productRoutes.delete("/:id", async (req, res) => {
 });
 
 productRoutes.post("/", async (req, res) => {
-    const {name, description, price} = req.body;
+    const {name, description, price, sku} = req.body;
 
     try {
         const results = await pool.query(
-            "INSERT INTO products (name, description, price) VALUE ($1, $2, $3) RETURNING id",
-            [name, description, price]
+            "INSERT INTO products (name, description, price, sku) VALUES ($1, $2, $3, $4) RETURNING id",
+            [name, description, price, sku]
         );
+        res.status(201).send(`Product created with id: ${results.rows[0].id}`);
     } catch (error) {
-
+        console.error(error);
+        res.status(500).send("An error occured");
     }
 });
 
