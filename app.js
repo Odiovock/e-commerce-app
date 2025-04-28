@@ -5,6 +5,7 @@ const PORT = 3000;
 const pool = require('./db');
 
 const registerRoutes = require("./user_auth/register");
+const loginRoutes = require("./user_auth/login");
 const userRoutes = require('./routes/user');
 const orderRoutes = require('./routes/order');
 const cartRoutes = require('./routes/cart');
@@ -28,6 +29,7 @@ app.get('/', (req, res) => {
 
 app.use("/register", registerRoutes);
 app.use('/users', userRoutes);
+app.use("/login", loginRoutes);
 // app.use('/orders', orderRoutes);
 // app.use('/cart', cartRoutes);
 // app.use('/products', productRoutes);
