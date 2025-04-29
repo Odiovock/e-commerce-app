@@ -16,6 +16,23 @@ productRoutes.get("/", async (req, res) => {
     }
 });
 
+productRoutes.use("/:id", async (req, res, next) => {
+    const result = await pool.query("SELECT id FROM products");
+    let isMatch = false;
+
+    for (const row of result.rows) {
+        if (row.id === parseInt(req.params.id)) {
+            isMatch = true;
+        }
+    }
+
+    if (isMatch) {
+        next();
+    } else {
+        res.status(404).send("Product not found.");
+    }
+});
+
 productRoutes.get("/:id", async (req, res) => {
     const {id} = req.params;
     const results = await pool.query("SELECT * FROM products WHERE id = $1", [id]);
@@ -49,7 +66,7 @@ productRoutes.put("/:id", async (req, res) => {
 
     try {
         const result = await pool.query(query, paramList);
-        res.status(204);
+        res.status(204).send();
     } catch (error) {
         console.error(error.toString());
         res.status(500).send("An error as occured");
@@ -57,7 +74,13 @@ productRoutes.put("/:id", async (req, res) => {
 });
 
 productRoutes.delete("/:id", async (req, res) => {
-
+    try {
+        const result = await pool.query("DELETE FROM products WHERE id=$1", [req.params.id]);
+        res.status(204).send();
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occured");
+    }
 });
 
 productRoutes.post("/", async (req, res) => {
