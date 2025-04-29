@@ -7,7 +7,7 @@ const userRouter = express.Router();
 userRouter.use(bodyParser.json());
 
 userRouter.use("/:id", async (req, res, next) => {
-    const result = await pool.query("SELECT id FROM users");
+    const result = await pool.query("SELECT id FROM products");
     let isMatch = false;
 
     for (const row of result.rows) {
@@ -19,7 +19,7 @@ userRouter.use("/:id", async (req, res, next) => {
     if (isMatch) {
         next();
     } else {
-        res.status(404).send("User not found.");
+        res.status(404).send("Product not found.");
     }
 });
 
@@ -29,20 +29,12 @@ userRouter.get("/", async (req, res) => {
         const json = JSON.stringify(results.rows);
         res.status(200).send(json);
     } catch (error) {
-        res.status(500).send("An error has occured");
+        res.status(500).send("Could not querry database");
     }
 });
 
 userRouter.get("/:id", async (req, res) => {
-    try {
-        const results = await pool.query("SELECT id, first_name, last_name, email, phone FROM users WHERE id=$1", [req.params.id]);
-        const json = JSON.stringify(results.rows[0]);
 
-        res.send(results.rows[0]);
-    } catch (error) {
-        console.error(error.toString());
-        res.status(500).send("An error has occured");
-    }
 });
 
 userRouter.put("/:id", async (req, res) => {
@@ -56,4 +48,3 @@ userRouter.delete("/:id", async (req, res) => {
 
 
 module.exports = userRouter;
-
