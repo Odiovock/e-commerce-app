@@ -6,6 +6,23 @@ const userRouter = express.Router();
 
 userRouter.use(bodyParser.json());
 
+userRouter.use("/:id", async (req, res, next) => {
+    const result = await pool.query("SELECT id FROM products");
+    let isMatch = false;
+
+    for (const row of result.rows) {
+        if (row.id === parseInt(req.params.id)) {
+            isMatch = true;
+        }
+    }
+
+    if (isMatch) {
+        next();
+    } else {
+        res.status(404).send("Product not found.");
+    }
+});
+
 userRouter.get("/", async (req, res) => {
     try {
         const results = await pool.query("SELECT id, first_name, last_name, email, phone FROM users");
