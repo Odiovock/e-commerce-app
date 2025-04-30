@@ -2,11 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../db');
 
-const userRouter = express.Router();
+const cartRouter = express.Router();
 
-userRouter.use(bodyParser.json());
+cartRouter.use(bodyParser.json());
 
-userRouter.use("/:id", async (req, res, next) => {
+cartRouter.use("/:id", async (req, res, next) => {
     const result = await pool.query("SELECT id FROM products");
     let isMatch = false;
 
@@ -23,9 +23,9 @@ userRouter.use("/:id", async (req, res, next) => {
     }
 });
 
-userRouter.get("/", async (req, res) => {
+cartRouter.get("/", async (req, res) => {
     try {
-        const results = await pool.query("SELECT id, first_name, last_name, email, phone FROM users");
+        const results = await pool.query("SELECT * FROM carts");
         const json = JSON.stringify(results.rows);
         res.status(200).send(json);
     } catch (error) {
@@ -33,18 +33,22 @@ userRouter.get("/", async (req, res) => {
     }
 });
 
-userRouter.get("/:id", async (req, res) => {
+cartRouter.post("/", async (req, res) => {
 
 });
 
-userRouter.put("/:id", async (req, res) => {
+cartRouter.get("/:id", async (req, res) => {
 
 });
 
-userRouter.delete("/:id", async (req, res) => {
+cartRouter.put("/:id", async (req, res) => {
+
+});
+
+cartRouter.delete("/:id", async (req, res) => {
 
 });
 
 
 
-module.exports = userRouter;
+module.exports = cartRouter;
