@@ -31,7 +31,7 @@ app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
 app.use('/products', productRoutes);
 app.use('/users', userRoutes);
-// app.use('/orders', orderRoutes);
+app.use('/orders', orderRoutes);
 app.use('/carts', cartRoutes);
 
 app.listen(PORT, () => {
