@@ -10,6 +10,7 @@ const userRoutes = require('./routes/user');
 const orderRoutes = require('./routes/order');
 const cartRoutes = require('./routes/cart');
 const productRoutes = require('./routes/product');
+const addtocartRoutes = require("./routes/addtocart");
 
 app.get('/', (req, res) => {
     try {
@@ -33,6 +34,7 @@ app.use('/products', productRoutes);
 app.use('/users', userRoutes);
 app.use('/orders', orderRoutes);
 app.use('/carts', cartRoutes);
+app.use("/addtocart", addtocartRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

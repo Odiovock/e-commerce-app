@@ -33,12 +33,15 @@ orderRouter.get("/", async (req, res) => {
     }
 });
 
-orderRouter.post("/", async (req, res) => {
-
-});
-
 orderRouter.get("/:id", async (req, res) => {
-
+    try {
+        const results = await pool.query("SELECT * FROM orders WHERE id=$1", [req.params.id]);
+        const json = JSON.stringify(results.rows[0]);
+        res.status(200).send(json);
+    } catch (error) {
+        console.error(error.toString());
+        res.status(500).send("An error occured");
+    }
 });
 
 orderRouter.put("/:id", async (req, res) => {

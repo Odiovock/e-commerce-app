@@ -23,6 +23,23 @@ cartRouter.use("/:id", async (req, res, next) => {
     }
 });
 
+cartRouter.use("/:id/content", async (req, res, next) => {
+    const result = await pool.query("SELECT cart_id FROM cart_products");
+    let isMatch = false;
+
+    for (const row of result.rows) {
+        if (row.cart_id === parseInt(req.params.id)) {
+            isMatch = true;
+        }
+    }
+
+    if (isMatch) {
+        next();
+    } else {
+        res.status(404).send("Invalid cart or cart is empty");
+    }
+})
+
 cartRouter.get("/", async (req, res) => {
     try {
         const results = await pool.query("SELECT * FROM carts");
@@ -33,9 +50,9 @@ cartRouter.get("/", async (req, res) => {
     }
 });
 
-cartRouter.get("/:id", async (req, res) => {
+cartRouter.get("/:id/content", async (req, res) => {
     try {
-        const results = await pool.query("SELECT * FROM carts WHERE id=$1", [req.params.id]);
+        const results = await pool.query("SELECT * FROM cart_products WHERE cart_id=$1", [req.params.id]);
         json = JSON.stringify(results.rows[0]);
         res.status(200).send(json);
     } catch (error) {

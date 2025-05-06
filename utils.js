@@ -23,6 +23,24 @@ async function findUserWithEmail (email) {
     } else {
         return result.rows[0].password;
     }
- }
+}
+
+// async function isRowFoundWithKey (table, key, value) {
+//     try {
+//         const results = await pool.query("SELECT $1 FROM $2", [key, table]);
+//     } catch (error) {
+//          console.error(error.toString());
+//     }
+
+//     let isMatch = false;
+
+//     for (const row of results.rows) {
+//         if (row.id === parseInt(value)) {
+//             isMatch = true;
+//         }
+//     }
+
+//     return isMatch;
+// }
 
 module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail};
