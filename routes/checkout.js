@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const pool = require("../db");
-const {generateOrderNumber} = require("../utils");
+const {generateOrderNumber, clearCart} = require("../utils");
 
 const checkoutRouter = express.Router();
 
@@ -96,8 +96,14 @@ checkoutRouter.post("/:id", async (req, res) => {
     }
 
     try {
-        const results = await pool.query(query, params);
-        res.status(200).send("Order Completed");
+        const notCleared = await clearCart(req.params.id);
+        if(notCleared) {
+            console.log(notCleared);
+            res.status(400).send("Could not clear cart");
+        } else {
+            const results = await pool.query(query, params);
+            res.status(200).send("Order Completed");
+        }
     } catch (error) {
         console.error(error.toString());
         res.status(500).send("An error occured");

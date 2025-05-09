@@ -49,7 +49,13 @@ orderRouter.put("/:id", async (req, res) => {
 });
 
 orderRouter.delete("/:id", async (req, res) => {
-
+    try {
+        const results = await pool.query("DELETE FROM orders WHERE id=$1", [req.params.id]);
+        res.status(204).send();
+    } catch (error) {
+        console.error(error.toString());
+        res.status(500).send("An error as occured");
+    }
 });
 
 

@@ -33,6 +33,16 @@ function generateOrderNumber (user_id) {
     return order_num;
 }
 
+async function clearCart (cart_id) {
+    let isError = undefined;
+    try {
+        const results = await pool.query("DELETE FROM cart_products WHERE cart_id=$1", [cart_id]);
+    } catch (error) {
+        isError = error;
+    }
+    return isError;
+}
+
 // async function isRowFoundWithKey (table, key, value) {
 //     try {
 //         const results = await pool.query("SELECT $1 FROM $2", [key, table]);
@@ -51,4 +61,4 @@ function generateOrderNumber (user_id) {
 //     return isMatch;
 // }
 
-module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail, generateOrderNumber};
+module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail, generateOrderNumber, clearCart};
