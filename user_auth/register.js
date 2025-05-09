@@ -8,13 +8,13 @@ const registerRouter = express.Router();
 registerRouter.use(bodyParser.json());
 
 registerRouter.post("/", async (req, res) => {
-    const {first_name, last_name, email, phone, password} = req.body;
+    const {first_name, last_name, email, phone, password, address} = req.body;
     const encryptedPassword = await bcryptEncryption(password);
 
     try {
         const result = await pool.query(
-            "INSERT INTO users (first_name, last_name, email, phone, password) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-            [first_name, last_name, email, phone, encryptedPassword]
+            "INSERT INTO users (first_name, last_name, email, phone, password, address) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
+            [first_name, last_name, email, phone, encryptedPassword, address]
         );
         const cart = await pool.query(
             "INSERT INTO carts (user_id) VALUES($1)",

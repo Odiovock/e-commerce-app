@@ -25,7 +25,7 @@ userRouter.use("/:id", async (req, res, next) => {
 
 userRouter.get("/", async (req, res) => {
     try {
-        const results = await pool.query("SELECT id, first_name, last_name, email, phone FROM users");
+        const results = await pool.query("SELECT id, first_name, last_name, email, phone, address FROM users");
         const json = JSON.stringify(results.rows);
         res.status(200).send(json);
     } catch (error) {
@@ -51,7 +51,7 @@ userRouter.put("/:id", async (req, res) => {
     let query = "UPDATE users SET ";
     let i = 1;
     for (const param in params) {
-        if (param === "first_name" || param === "last_name" || param === "email" || param === "phone")
+        if (param === "first_name" || param === "last_name" || param === "email" || param === "phone" || param === "address")
         {
             if (i > 1)  {
                 query += ",";

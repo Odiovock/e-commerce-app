@@ -11,6 +11,7 @@ const orderRoutes = require('./routes/order');
 const cartRoutes = require('./routes/cart');
 const productRoutes = require('./routes/product');
 const addtocartRoutes = require("./routes/addtocart");
+const checkoutRoutes = require("./routes/checkout");
 
 app.get('/', (req, res) => {
     try {
@@ -35,6 +36,7 @@ app.use('/users', userRoutes);
 app.use('/orders', orderRoutes);
 app.use('/carts', cartRoutes);
 app.use("/addtocart", addtocartRoutes);
+app.use("/checkout", checkoutRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

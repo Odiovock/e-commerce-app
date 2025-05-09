@@ -53,7 +53,7 @@ cartRouter.get("/", async (req, res) => {
 cartRouter.get("/:id/content", async (req, res) => {
     try {
         const results = await pool.query("SELECT * FROM cart_products WHERE cart_id=$1", [req.params.id]);
-        json = JSON.stringify(results.rows[0]);
+        json = JSON.stringify(results.rows);
         res.status(200).send(json);
     } catch (error) {
         console.error(error.toString());

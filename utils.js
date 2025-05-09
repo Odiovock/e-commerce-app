@@ -25,6 +25,14 @@ async function findUserWithEmail (email) {
     }
 }
 
+function generateOrderNumber (user_id) {
+    let order_num = "";
+    const now = new Date();
+    order_num += user_id.toString() + now.getFullYear().toString() + now.getDay().toString() + now.getHours().toString() + now.getHours().toString() +
+        now.getSeconds().toString() + now.getMilliseconds().toString();
+    return order_num;
+}
+
 // async function isRowFoundWithKey (table, key, value) {
 //     try {
 //         const results = await pool.query("SELECT $1 FROM $2", [key, table]);
@@ -43,4 +51,4 @@ async function findUserWithEmail (email) {
 //     return isMatch;
 // }
 
-module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail};
+module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail, generateOrderNumber};
