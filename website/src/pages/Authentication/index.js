@@ -113,7 +113,7 @@ function SignUpForm ({onToggleSignIn}) {
     );
 }
 
-function HomePage () {
+function Authentication () {
     const [isLogin, setIsLogin] = useState(false);
     const [isAuthenticated, setIsAuthenticated] = useState(null);
 
@@ -128,4 +128,4 @@ function HomePage () {
     }
 }
 
-export default HomePage
+export default Authentication
