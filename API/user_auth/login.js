@@ -21,7 +21,23 @@ loginRoute.post("/", async (req, res) => {
             return;
         }
 
-        res.status(200).send("SomeDay I will validate the session");
+        // Set session data
+        req.session.authenticated = true;
+        req.session.email = email; // Assuming response has user ID
+        
+        // Save session explicitly
+        req.session.save((err) => {
+            if (err) {
+                console.error('Session save error:', err);
+                return res.status(500).json({ error: 'Failed to create session' });
+            }
+            res.status(200).json({ 
+                message: "Login successful",
+                user: {
+                    email: response.email
+                }
+            });
+        });
     } catch (error) {
         res.status(500).send(error);
     }

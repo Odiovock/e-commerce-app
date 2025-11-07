@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 const cors = require("cors");
+require("dotenv").config();
+const session = require("express-session");
+const store = new session.MemoryStore();
 
 const pool = require('./db');
 
@@ -14,7 +17,31 @@ const productRoutes = require('./routes/product');
 const addtocartRoutes = require("./routes/addtocart");
 const checkoutRoutes = require("./routes/checkout");
 
-app.use(cors());
+// Enable CORS with credentials
+app.use(cors({
+    origin: 'http://localhost:3001', // Your React app's URL
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Parse JSON bodies
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Session middleware
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        secure: false, // set to true if using https
+        httpOnly: true,
+        sameSite: 'lax'
+    },
+    resave: true,
+    saveUninitialized: true,
+    store
+}));
 
 app.get('/', (req, res) => {
     try {

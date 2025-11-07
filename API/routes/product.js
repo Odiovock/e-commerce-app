@@ -4,7 +4,22 @@ const pool = require("../db");
 
 const productRoutes = express.Router();
 
+// Apply JSON parsing middleware
 productRoutes.use(bodyParser.json());
+
+// Authentication middleware
+const isAuthenticated = (req, res, next) => {
+    if (!req.session) {
+        return res.status(500).json({ msg: "Session middleware not properly configured" });
+    }
+    if (req.session.authenticated) {
+        return next();
+    }
+    return res.status(403).json({ msg: "You are not authenticated" });
+};
+
+// Apply authentication middleware to all routes
+productRoutes.use(isAuthenticated);
 
 productRoutes.get("/", async (req, res) => {
     try {

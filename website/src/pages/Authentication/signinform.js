@@ -27,8 +27,9 @@ function SignInForm ({onToggleSignUp}) {
             const response = await fetch("http://localhost:3000/login", {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json"
+                    "Content-Type": "application/json"
                 },
+                credentials: "include",
                 body: JSON.stringify({
                     email,
                     password
@@ -43,7 +44,7 @@ function SignInForm ({onToggleSignUp}) {
                 pathname: "/home"
             })
         } catch (error) {
-            console.log(error.body);
+            console.log(error);
         }
     }
 
