@@ -1,0 +1,114 @@
+.container {
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f5f5f5;
+}
+
+.mainForm {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.5rem;
+}
+
+.formElement {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    background: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border-color: #007bff;
+}
+
+.label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 0.25rem;
+    background-color: white;
+    color: #444;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+}
+
+/* Move label up when input is focused or has content */
+.input:focus ~ .label,
+.input:not(:placeholder-shown) ~ .label {
+    top: 0;
+    left: 0.8rem;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: #007bff;
+    height: auto;
+}
+
+/* Button container */
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+    margin-top: 1rem;
+    position: relative;
+}
+
+/* Style for buttons */
+.button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    min-width: 120px;
+}
+
+.submitButton {
+    background-color: #007bff;
+    color: white;
+}
+
+.submitButton:hover {
+    background-color: #0056b3;
+}
+
+.secondaryButton {
+    background-color: #e9ecef;
+    color: #495057;
+}
+
+.secondaryButton:hover {
+    background-color: #dee2e6;
+}

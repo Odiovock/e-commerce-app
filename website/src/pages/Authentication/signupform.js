@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import styles from "../../style/signup.module.css";
 
 function SignUpForm ({onToggleSignIn}) {
     document.title = "Sign Up";
@@ -62,20 +63,32 @@ function SignUpForm ({onToggleSignIn}) {
     }
 
     return (
-        <div>
-            <form onSubmit={handleOnSignUpSubmit}>
-                <label htmlFor="firstName">First name</label>
-                <input type="text" id="firstName" value={firstName} onChange={onFirstNameInputChange}required/>
-                <label htmlFor="lastName">Last name</label>
-                <input type="text" id="lastName" value={lastName} onChange={onLastNameInputChange} required/>
-                <label htmlFor="email">Email</label>
-                <input type="email" id="email" value={email} onChange={onEmailInputChange} required/>
-                <label htmlFor="phone">Phone</label>
-                <input type="text" id="phone" value={phone} onChange={onPhoneInputChange} required/>
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" value={password} onChange={onPasswordInputChange} required/>
-                <button type="submit">Sign Up</button>
-                <button onClick={onSignInCLick}>Sign In</button>
+        <div className={styles.container}>
+            <form onSubmit={handleOnSignUpSubmit} className={styles.mainForm}>
+                <div className={styles.formElement}>
+                    <input type="text" id="firstName" value={firstName} onChange={onFirstNameInputChange} className={styles.input} placeholder=" " required/>
+                    <label htmlFor="firstName" className={styles.label}>First name</label>
+                </div>
+                <div className={styles.formElement}>
+                    <input type="text" id="lastName" value={lastName} onChange={onLastNameInputChange} className={styles.input} placeholder=" " required/>
+                    <label htmlFor="lastName" className={styles.label}>Last name</label>
+                </div>
+                <div className={styles.formElement}>
+                    <input type="email" id="email" value={email} onChange={onEmailInputChange} className={styles.input} placeholder=" " required/>
+                    <label htmlFor="email" className={styles.label}>Email</label>
+                </div>
+                <div className={styles.formElement}>
+                    <input type="text" id="phone" value={phone} onChange={onPhoneInputChange} className={styles.input} placeholder=" " required/>
+                    <label htmlFor="phone" className={styles.label}>Phone</label>
+                </div>
+                <div className={styles.formElement}>
+                    <input type="password" id="password" value={password} onChange={onPasswordInputChange} className={styles.input} placeholder=" " required/>
+                    <label htmlFor="password" className={styles.label}>Password</label>
+                </div>
+                <div className={styles.buttonContainer}>
+                    <button type="submit" className={`${styles.button} ${styles.submitButton}`}>Sign Up</button>
+                    <button onClick={onSignInCLick} className={`${styles.button} ${styles.secondaryButton}`}>Sign In</button>
+                </div>
             </form>
         </div>
     );

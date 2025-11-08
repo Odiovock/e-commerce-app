@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import styles from "../../style/signin.module.css";
 
 function SignInForm ({onToggleSignUp}) {
     const navigate = useNavigate();
@@ -49,14 +50,36 @@ function SignInForm ({onToggleSignUp}) {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSignInOnSubmit}>
-                <label htmlFor="email">User name</label>
-                <input id="email" type="email" value={email} onChange={onEmailInputChange}/>
-                <label htmlFor="password">password</label>
-                <input id="password" type="password" value={password} onChange={onPasswordInputChange}/>
-                <button type="submit">Sign in</button>
-                <button onClick={onSignUpClick}>Sign up</button>
+        <div className={styles.container}>
+            <form onSubmit={handleSignInOnSubmit} className={styles.mainForm}>
+                <div className={styles.formElement}>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        value={email} 
+                        onChange={onEmailInputChange} 
+                        className={styles.input}
+                        placeholder=" "
+                        required
+                    />
+                    <label htmlFor="email" className={styles.label}>Email</label>
+                </div>
+                <div className={styles.formElement}>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        value={password} 
+                        onChange={onPasswordInputChange} 
+                        className={styles.input}
+                        placeholder=" "
+                        required
+                    />
+                    <label htmlFor="password" className={styles.label}>Password</label>
+                </div>
+                <div className={styles.buttonContainer}>
+                    <button type="submit" className={`${styles.button} ${styles.submitButton}`}>Sign in</button>
+                    <button onClick={onSignUpClick} className={`${styles.button} ${styles.secondaryButton}`}>Sign up</button>
+                </div>
             </form>
         </div>
     );

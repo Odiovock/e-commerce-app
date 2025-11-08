@@ -1,0 +1,22 @@
+-- Seed data for products table
+INSERT INTO products (name, sku, price) VALUES
+('Amoxiclav 500mg', 'AMX500', 29.99),
+('Ciprofloxin 250mg', 'CPF250', 34.50),
+('Dexamethasone 4mg', 'DEX004', 25.75),
+('Metformin HCL 850mg', 'MET850', 19.99),
+('Omeprazole 20mg', 'OMP020', 15.50),
+('Sertraline 100mg', 'SRT100', 45.99),
+('Atorvastatin 40mg', 'ATV040', 39.99),
+('Levothyroxine 75mcg', 'LVT075', 22.50),
+('Pantoprazole 40mg', 'PNT040', 28.75),
+('Escitalopram 10mg', 'ESC010', 42.99),
+('Ramipril 5mg', 'RMP005', 18.99),
+('Venlafaxine 75mg', 'VNF075', 36.50),
+('Bisoprolol 2.5mg', 'BSP025', 24.99),
+('Fluoxetine 20mg', 'FLX020', 32.75),
+('Metoprolol 50mg', 'MTP050', 27.50),
+('Losartan 100mg', 'LST100', 31.99),
+('Rosuvastatin 20mg', 'RSV020', 48.75),
+('Gabapentin 300mg', 'GBP300', 35.99),
+('Diclofenac 50mg', 'DCF050', 21.50),
+('Amlodipine 5mg', 'AML005', 23.99);
