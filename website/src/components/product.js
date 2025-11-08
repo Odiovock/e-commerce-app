@@ -3,9 +3,17 @@ import styles from "../style/productdisplay.module.css";
 import img1 from '../images/1.jpg';
 import img2 from '../images/2.jpg';
 import img3 from '../images/3.jpg';
+import { useNavigate } from "react-router-dom";
 
 function Product ({sku, name, price, image}) {
-    const formatPrice = (price) => {
+    const navigate = useNavigate();
+
+    function handleOnTileClick (e) {
+        e.preventDefault();
+        navigate(`/product/${sku}`)
+    }
+
+    function formatPrice (price) {
         try {
             return `$${Number(price).toFixed(2)}`;
         } catch (error) {
@@ -28,7 +36,7 @@ function Product ({sku, name, price, image}) {
     };
 
     return (
-        <div className={styles.productTile}>
+        <div className={styles.productTile} onClick={handleOnTileClick}>
             <img 
                 src={getImage(image)}
                 alt={name}

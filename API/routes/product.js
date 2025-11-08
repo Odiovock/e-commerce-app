@@ -31,32 +31,19 @@ productRoutes.get("/", async (req, res) => {
     }
 });
 
-productRoutes.use("/:id", async (req, res, next) => {
-    const result = await pool.query("SELECT id FROM products");
-    let isMatch = false;
+productRoutes.get("/:sku", async (req, res) => {
+    try {
+        const { sku } = req.params;
+        const results = await pool.query("SELECT * FROM products WHERE sku = $1", [sku]);
 
-    for (const row of result.rows) {
-        if (row.id === parseInt(req.params.id)) {
-            isMatch = true;
+        if (results.rows.length === 0) {
+            return res.status(404).json({ error: "Product not found" });
         }
-    }
 
-    if (isMatch) {
-        next();
-    } else {
-        res.status(404).send("Product not found.");
-    }
-});
-
-productRoutes.get("/:id", async (req, res) => {
-    const {id} = req.params;
-    const results = await pool.query("SELECT * FROM products WHERE id = $1", [id]);
-
-    if (results.rows.length > 0) {
-        const json = JSON.stringify(results.rows[0]);
-        res.send(json);
-    } else {
-        res.status(404).send("Product not found");
+        res.status(200).json(results.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Database error");
     }
 });
 

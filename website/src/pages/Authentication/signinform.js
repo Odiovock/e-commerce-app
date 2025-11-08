@@ -5,7 +5,10 @@ import styles from "../../style/signin.module.css";
 function SignInForm ({onToggleSignUp}) {
     const navigate = useNavigate();
 
-    document.title = "Sign In";
+    useEffect(() => {
+        document.title = "Drugs.Co - Sign In";
+    }, []);
+    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 

@@ -30,6 +30,7 @@ function ProductDisplay () {
     }
 
     useEffect(() => {
+        document.title = "Drugs.Co - Store";
         const getProducts = async () => {
             const data = await fetchProducts();
             console.log('Products fetched:', data); // Debug log

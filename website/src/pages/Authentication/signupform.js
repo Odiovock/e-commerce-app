@@ -2,12 +2,15 @@ import React, {useEffect, useState} from "react";
 import styles from "../../style/signup.module.css";
 
 function SignUpForm ({onToggleSignIn}) {
-    document.title = "Sign Up";
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+        document.title = "Drugs.Co - Sign Up";
+    }, [])
 
     function onSignInCLick (e) {
         e.preventDefault();
