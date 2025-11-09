@@ -33,7 +33,6 @@ function ProductDisplay () {
         document.title = "Drugs.Co - Store";
         const getProducts = async () => {
             const data = await fetchProducts();
-            console.log('Products fetched:', data); // Debug log
             setProducts(data);
         };
         getProducts();
@@ -55,6 +54,7 @@ function ProductDisplay () {
             <div className={styles.productsGrid}>
                 {currentProducts ? currentProducts.map((product) => (
                     <Product 
+                        id={product.id}
                         key={product.sku} 
                         sku={product.sku} 
                         name={product.name} 

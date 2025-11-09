@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { useParams  } from "react-router-dom";
+import styles from "../../style/productdetails.module.css";
+import { getImage } from "../../utils";
+import AddToCart from "../../components/addtocart";
 
 function ProductDetails () {
     const {sku} = useParams();
@@ -37,10 +40,22 @@ function ProductDetails () {
         document.title = "Drugs.Co  - Product"
     }, []);
 
-    console.log(productData);
     return (
-        <div>
-            You querried {productData.name} successfully!
+        <div className={styles.container}>
+            <div className={styles.columns}>
+                <img 
+                    src={getImage(productData.image)}
+                    alt={productData.name}
+                    className={styles.productImage}
+                />
+            </div>
+            <div className={styles.columns}>
+                <h1>{productData.name}</h1>
+                <p>{productData.description}</p>
+            </div>
+            <div className={styles.columns}>
+                <AddToCart price={productData.price}/>
+            </div>
         </div>
     );
 } 

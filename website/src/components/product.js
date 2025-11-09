@@ -1,39 +1,15 @@
 import React from "react";
 import styles from "../style/productdisplay.module.css";
-import img1 from '../images/1.jpg';
-import img2 from '../images/2.jpg';
-import img3 from '../images/3.jpg';
 import { useNavigate } from "react-router-dom";
+import { getImage, formatPrice } from "../utils";
 
-function Product ({sku, name, price, image}) {
+function Product ({id, sku, name, price, image}) {
     const navigate = useNavigate();
 
     function handleOnTileClick (e) {
         e.preventDefault();
-        navigate(`/product/${sku}`)
+        navigate(`/product/${sku}/${id}`)
     }
-
-    function formatPrice (price) {
-        try {
-            return `$${Number(price).toFixed(2)}`;
-        } catch (error) {
-            console.error('Error formatting price:', error);
-            return `$${price}`;
-        }
-    };
-
-    const getImage = (imageNumber) => {
-        switch(imageNumber) {
-            case 1:
-                return img1;
-            case 2:
-                return img2;
-            case 3:
-                return img3;
-            default:
-                return img1;
-        }
-    };
 
     return (
         <div className={styles.productTile} onClick={handleOnTileClick}>

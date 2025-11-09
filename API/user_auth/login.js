@@ -34,7 +34,8 @@ loginRoute.post("/", async (req, res) => {
             res.status(200).json({ 
                 message: "Login successful",
                 user: {
-                    email: response.email
+                    email: response.email,
+                    id: response.id
                 }
             });
         });
