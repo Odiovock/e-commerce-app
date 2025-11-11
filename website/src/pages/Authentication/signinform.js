@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import styles from "../../style/signin.module.css";
 
 function SignInForm ({onToggleSignUp}) {
     const navigate = useNavigate();
+    const {setCartContent} = useOutletContext();
 
     useEffect(() => {
         document.title = "Drugs.Co - Sign In";
@@ -43,6 +44,9 @@ function SignInForm ({onToggleSignUp}) {
             if (!response.ok) {
                 throw new Error(reportError.body);
             }
+
+            const data = await response.json();
+            setCartContent(data.user.cartContent);
 
             navigate({
                 pathname: "/home"

@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { bcryptDecription, findUserWithEmail } = require("../utils");
+const { bcryptDecription, findUserWithEmail,  getCartId, getCartContent} = require("../utils");
 
 const loginRoute = express.Router();
 
@@ -15,7 +15,7 @@ loginRoute.post("/", async (req, res) => {
             return;
         }
 
-        const isPasswordIsMatched = await bcryptDecription(password, response);
+        const isPasswordIsMatched = await bcryptDecription(password, response.password);
         if (!isPasswordIsMatched) {
             res.status(400).send("Incorrect password");
             return;
@@ -23,9 +23,19 @@ loginRoute.post("/", async (req, res) => {
 
         // Set session data
         req.session.authenticated = true;
-        req.session.email = email; // Assuming response has user ID
+        req.session.userId = response.id // Assuming response has user ID
+
+        
+        const cartId = await getCartId(req.session.userId);
+        if (!cartId) {
+            res.status(500).send("A server error occured");
+        }
+        req.session.cartId = cartId;
+
+        const cartContent = await getCartContent(cartId);
         
         // Save session explicitly
+        console.log("Session data: ", req.session)
         req.session.save((err) => {
             if (err) {
                 console.error('Session save error:', err);
@@ -35,7 +45,8 @@ loginRoute.post("/", async (req, res) => {
                 message: "Login successful",
                 user: {
                     email: response.email,
-                    id: response.id
+                    id: response.id,
+                    cartContent
                 }
             });
         });

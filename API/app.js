@@ -59,14 +59,25 @@ app.get('/', (req, res) => {
     }
 });
 
+// Authentication middleware
+const isAuthenticated = (req, res, next) => {
+    if (!req.session) {
+        return res.status(500).json({ msg: "Session middleware not properly configured" });
+    }
+    if (req.session.authenticated) {
+        return next();
+    }
+    return res.status(403).json({ msg: "You are not authenticated" });
+};
+
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
-app.use('/products', productRoutes);
-app.use('/users', userRoutes);
-app.use('/orders', orderRoutes);
-app.use('/carts', cartRoutes);
-app.use("/addtocart", addtocartRoutes);
-app.use("/checkout", checkoutRoutes);
+app.use('/products',isAuthenticated , productRoutes);
+app.use('/users',isAuthenticated , userRoutes);
+app.use('/orders',isAuthenticated , orderRoutes);
+app.use('/carts',isAuthenticated , cartRoutes);
+app.use("/addtocart",isAuthenticated , addtocartRoutes);
+app.use("/checkout",isAuthenticated,  checkoutRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

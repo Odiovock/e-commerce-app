@@ -2,16 +2,18 @@ import React, {useEffect, useState} from "react";
 import styles from "../style/productdetails.module.css";
 import { formatPrice  } from "../utils";
 import { useParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 function AddToCart ({price}) {
     const [quantity, setQuantity] = useState(1);
     const [productId, setProductId] = useState(null);
+    const { cartContent, setCartContent } = useOutletContext();
 
-    const id = useParams();
+    const {id} = useParams();
 
     useEffect(() => {
         setProductId(id);
-    }, []);
+    }, [id]);
 
     function onQuantityInputChange (e) {
         setQuantity(e.target.value);
@@ -45,14 +47,18 @@ function AddToCart ({price}) {
     async function onAddToCartSubmit (e) {
         e.preventDefault();
 
-        try {
-            
-        } catch (error) {
+        setCartContent(() => {
+            const oldCart = {...cartContent};
 
-        }
+            if (oldCart[productId]) {
+                oldCart[productId] += quantity;
+                return oldCart;
+            } else {
+                return {...oldCart, [productId]: quantity};
+            }
+        });
     }
 
-    console.log(productId);
     return (
         <form className={styles.addToCartSection} onSubmit={onAddToCartSubmit}>
             <p className={[styles.productPrice, styles.addToCartSpacing].join(" ")}>{formatPrice(price)}</p>
@@ -66,4 +72,4 @@ function AddToCart ({price}) {
     );
 }
 
-export default AddToCart 
+export default AddToCart;

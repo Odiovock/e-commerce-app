@@ -14,14 +14,14 @@ async function bcryptDecription (password, encryptedPassword) {
 
 async function findUserWithEmail (email) {
     const result = await pool.query(
-        "SELECT password FROM users WHERE email = $1",
+        "SELECT password, id FROM users WHERE email = $1",
         [email]
     );
 
     if (result.rows.length === 0) {
         return undefined;
     } else {
-        return result.rows[0].password;
+        return result.rows[0];
     }
 }
 
@@ -43,6 +43,24 @@ async function clearCart (cart_id) {
     return isError;
 }
 
+async function getCartId (user_id) {
+    const result = await pool.query("SELECT id FROM carts WHERE user_id=$1", [user_id]);
+    if (result.rows.length === 0) {
+        return undefined;
+    } else {
+        return result.rows[0].id;
+    }
+}
+
+async function getCartContent (cart_id) {
+    const result = await pool.query("SELECT product_id, quantity FROM cart_products WHERE cart_id=$1", [cart_id]);
+    if (result.rows.length === 0) {
+        return {};
+    } else {
+        return JSON.stringify(result);
+    }
+}
+
 // async function isRowFoundWithKey (table, key, value) {
 //     try {
 //         const results = await pool.query("SELECT $1 FROM $2", [key, table]);
@@ -61,4 +79,4 @@ async function clearCart (cart_id) {
 //     return isMatch;
 // }
 
-module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail, generateOrderNumber, clearCart};
+module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail, generateOrderNumber, clearCart, getCartId, getCartContent};
