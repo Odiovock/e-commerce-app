@@ -29,7 +29,7 @@ function Header ({cartContent}) {
             <h1 onClick={() => navigate('/home')}>Drugs.Co</h1>
             <nav className={styles.nav}>
                 <NavLink to="/home/products">Products</NavLink>
-                <NavLink to="/cart">Cart {cartItemCount}</NavLink>
+                <NavLink to="/cart">Cart <span className={styles.cartCount}>{cartItemCount}</span></NavLink>
                 <NavLink to="/orders">Orders</NavLink>
                 <NavLink to="/account">Account</NavLink>
             </nav>
