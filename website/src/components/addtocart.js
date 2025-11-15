@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 
 function AddToCart ({price}) {
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(0);
     const [productId, setProductId] = useState(null);
     const { cartContent, setCartContent } = useOutletContext();
 
@@ -27,8 +27,8 @@ function AddToCart ({price}) {
 
     function onMinusQuantityButtonCLick (e) {
         const current = parseInt(quantity);
-        if (current <= 1) {
-            setQuantity(1);
+        if (current <= 0) {
+            setQuantity(0);
             return;
         }
         setQuantity(current - 1);
@@ -47,6 +47,10 @@ function AddToCart ({price}) {
     async function onAddToCartSubmit (e) {
         e.preventDefault();
 
+        if (!quantity > 0) {
+            return;
+        }
+
         setCartContent(() => {
             const oldCart = {...cartContent};
 
@@ -57,6 +61,26 @@ function AddToCart ({price}) {
                 return {...oldCart, [productId]: quantity};
             }
         });
+
+        try {
+            const response = await fetch("http://localhost:3000/addtocart", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    product_id: productId, 
+                    quantity
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error("Could not update cart");
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     return (

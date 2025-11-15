@@ -61,6 +61,14 @@ async function getCartContent (cart_id) {
     }
 }
 
+async function emptyCart (cart_id) {
+    try {
+        const results = await pool.query("DELETE FROM cart_products WHERE cart_id=$1", [cart_id]);
+    } catch (error) {
+        console.error(error.toString());
+    }
+}
+
 // async function isRowFoundWithKey (table, key, value) {
 //     try {
 //         const results = await pool.query("SELECT $1 FROM $2", [key, table]);
@@ -79,4 +87,4 @@ async function getCartContent (cart_id) {
 //     return isMatch;
 // }
 
-module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail, generateOrderNumber, clearCart, getCartId, getCartContent};
+module.exports = {bcryptEncryption, bcryptDecription, findUserWithEmail, generateOrderNumber, clearCart, getCartId, getCartContent, emptyCart};

@@ -46,7 +46,9 @@ function SignInForm ({onToggleSignUp}) {
             }
 
             const data = await response.json();
-            setCartContent(data.user.cartContent);
+            const cart = JSON.parse(data.user.cartContent);
+            alert(cart.rows);
+            //setCartContent(data.user.cartContent);
 
             navigate({
                 pathname: "/home"
