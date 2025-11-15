@@ -12,7 +12,7 @@ function AddToCart ({price}) {
     const {id} = useParams();
 
     useEffect(() => {
-        setProductId(id);
+        setProductId(parseInt(id));
     }, [id]);
 
     function onQuantityInputChange (e) {
@@ -51,16 +51,15 @@ function AddToCart ({price}) {
             return;
         }
 
-        setCartContent(() => {
-            const oldCart = {...cartContent};
+        const newCart = [...cartContent];
+        const product = newCart.find(item => item.product_id === productId);
+        if (product) {
+            product.quantity += quantity;
+        } else {
+            newCart.push({ product_id: productId, quantity });
+        }
 
-            if (oldCart[productId]) {
-                oldCart[productId] += quantity;
-                return oldCart;
-            } else {
-                return {...oldCart, [productId]: quantity};
-            }
-        });
+        setCartContent(newCart);
 
         try {
             const response = await fetch("http://localhost:3000/addtocart", {
@@ -70,8 +69,7 @@ function AddToCart ({price}) {
                 },
                 credentials: "include",
                 body: JSON.stringify({
-                    product_id: productId, 
-                    quantity
+                    newCart
                 })
             });
 

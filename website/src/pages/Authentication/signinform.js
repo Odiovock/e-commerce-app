@@ -45,10 +45,23 @@ function SignInForm ({onToggleSignUp}) {
                 throw new Error(reportError.body);
             }
 
-            const data = await response.json();
-            const cart = JSON.parse(data.user.cartContent);
-            alert(cart.rows);
-            //setCartContent(data.user.cartContent);
+            try {
+                const response = await fetch("http://localhost:3000/carts/content", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "include"  // This will send cookies with the request
+                });
+
+                if (!response.ok) {
+                    throw new Error("Could not fetch cart content");
+                }
+                const result = await response.json();
+                setCartContent(result);
+            } catch (error) {
+                console.log(error);
+            }
 
             navigate({
                 pathname: "/home"

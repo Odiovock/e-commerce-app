@@ -31,8 +31,6 @@ loginRoute.post("/", async (req, res) => {
             res.status(500).send("A server error occured");
         }
         req.session.cartId = cartId;
-
-        const cartContent = await getCartContent(cartId);
         
         // Save session explicitly
         console.log("Session data: ", req.session)
@@ -46,7 +44,6 @@ loginRoute.post("/", async (req, res) => {
                 user: {
                     email: response.email,
                     id: response.id,
-                    cartContent
                 }
             });
         });

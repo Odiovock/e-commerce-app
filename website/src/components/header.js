@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 
-function Header ({cartContent}) {
-    const [cartItemCount, setCartItemCount] = useState(0);
+function Header ({cartItemCount = 0}) {
     const navigate = useNavigate();
 
     function onLinkCLick (e) {
@@ -13,17 +12,6 @@ function Header ({cartContent}) {
         navigate(e.target.value);
     }
 
-    useEffect(() => {
-        setCartItemCount(() => {
-            let count = 0;
-            for (const key in cartContent) {
-                count += cartContent[key];
-            }
-            return count;
-        });
-    }, [cartContent])
-
-    console.log(cartContent);
     return (
         <div className={styles.header}>
             <h1 onClick={() => navigate('/home')}>Drugs.Co</h1>

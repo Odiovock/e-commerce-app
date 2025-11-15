@@ -57,7 +57,7 @@ async function getCartContent (cart_id) {
     if (result.rows.length === 0) {
         return {};
     } else {
-        return JSON.stringify(result);
+        return JSON.stringify(result.rows);
     }
 }
 
