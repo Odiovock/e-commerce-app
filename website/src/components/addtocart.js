@@ -9,7 +9,7 @@ function AddToCart ({price}) {
     const [productId, setProductId] = useState(null);
     const { cartContent, setCartContent } = useOutletContext();
 
-    const {id} = useParams();
+    const {id, sku} = useParams();
 
     useEffect(() => {
         setProductId(parseInt(id));
@@ -56,7 +56,7 @@ function AddToCart ({price}) {
         if (product) {
             product.quantity += quantity;
         } else {
-            newCart.push({ product_id: productId, quantity });
+            newCart.push({ product_id: productId, quantity, sku});
         }
 
         setCartContent(newCart);

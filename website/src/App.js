@@ -4,6 +4,7 @@ import {RouterProvider, Route, createBrowserRouter, createRoutesFromElements} fr
 import HomePage from "./pages/HomePage";
 import ProductDisplay from "./components/productdisplay";
 import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
 
 const appRouter = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Root/>}>
@@ -12,6 +13,7 @@ const appRouter = createBrowserRouter(createRoutesFromElements(
       <Route path="/home/products" element={<ProductDisplay/>} />
     </Route>
     <Route path="/product/:sku/:id" element={<ProductDetails/>}/>      
+    <Route path="/cart" element={<Cart/>}/>
   </Route>
 ));
 

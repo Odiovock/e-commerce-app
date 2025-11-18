@@ -18,9 +18,17 @@ cartRouter.get("/", async (req, res) => {
 
 cartRouter.get("/content", async (req, res) => {
     try {
-        const results = await pool.query("SELECT product_id, quantity FROM cart_products WHERE cart_id=$1", [req.session.cartId]);
-        json = JSON.stringify(results.rows);
-        res.status(200).send(json);
+        if (!req.session || !req.session.cartId) {
+            return res.status(200).json([]); // no cart yet
+        }
+        const results = await pool.query(
+            `SELECT cp.product_id, cp.quantity, p.sku, p.name, p.price, p.image
+             FROM cart_products cp
+             JOIN products p ON cp.product_id = p.id
+             WHERE cp.cart_id = $1`,
+            [req.session.cartId]
+        );
+        return res.status(200).json(results.rows);
     } catch (error) {
         console.error(error.toString());
         res.status(500).send("An error occured");
