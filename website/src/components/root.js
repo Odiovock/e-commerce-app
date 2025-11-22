@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import Header from "./header";
 
 function Root () {
-    const [ cartContent, setCartContent] = useState(null);
+    const [ cartContent, setCartContent] = useState([]);
     const [cartItemCount, setCartItemCount] = useState(0);  
 
     useEffect(() => {

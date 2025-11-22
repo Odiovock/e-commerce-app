@@ -54,7 +54,7 @@ function ProductDetails () {
                 <p>{productData.description}</p>
             </div>
             <div className={styles.columns}>
-                <AddToCart price={productData.price} sku={productData.sku}/>
+                <AddToCart name={productData.name} image={productData.image} price={productData.price} sku={productData.sku}/>
             </div>
         </div>
     );

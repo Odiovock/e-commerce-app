@@ -4,7 +4,7 @@ import { formatPrice  } from "../utils";
 import { useParams } from "react-router-dom";
 import { useOutletContext } from "react-router-dom";
 
-function AddToCart ({price}) {
+function AddToCart ({price, name, image}) {
     const [quantity, setQuantity] = useState(0);
     const [productId, setProductId] = useState(null);
     const { cartContent, setCartContent } = useOutletContext();
@@ -21,7 +21,7 @@ function AddToCart ({price}) {
         } else if (e.target.value > 999) {
             setQuantity(999);
         } else {
-            setQuantity(e.target.value);
+            setQuantity(parseInt(e.target.value));
         }
     }
 
@@ -54,9 +54,13 @@ function AddToCart ({price}) {
         const newCart = [...cartContent];
         const product = newCart.find(item => item.product_id === productId);
         if (product) {
-            product.quantity += quantity;
+            if( product.quantity + quantity > 999) {
+                product.quantity = 999;
+            } else {
+                product.quantity += quantity;
+            }
         } else {
-            newCart.push({ product_id: productId, quantity, sku});
+            newCart.push({ product_id: productId, quantity, sku, name, price, image });
         }
 
         setCartContent(newCart);

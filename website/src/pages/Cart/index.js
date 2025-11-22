@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { useOutletContext } from "react-router-dom";
 import CartItem from "../../components/cartItem";
 import styles from "../../style/cart.module.css";
+import OrderSection from "../../components/ordersection";
 
 function Cart() {
     const { cartContent, setCartContent } = useOutletContext();
@@ -25,6 +26,7 @@ function Cart() {
                 ) : (
                     <p>Your cart is empty.</p>
                 )}
+                <OrderSection cartContent={cartContent} />
             </div>
         </div>
     );

@@ -46,21 +46,24 @@ function CartItem({ productId, quantity, sku, name, price, image }) {
 
     function onQuantityInputChange (e) {
         if (e.target.value < 1 || e.target.value === undefined || e.target.value === null) {
-            setItemQuantity(1);
+            setItemQuantity(0);
+            updateCart(0);
         } else if (e.target.value > 999) {
             setItemQuantity(999);
+            updateCart(999);
         } else {
-            setItemQuantity(e.target.value);
+            setItemQuantity(parseInt(e.target.value));
+            updateCart(parseInt(e.target.value));
         }
 
-        updateCart(parseInt(itemQuantity));
+        
     }
 
     function onMinusQuantityButtonClick (e) {
         const current = parseInt(itemQuantity);
-        const currentCartCount = parseInt(cartItemCount);
         if (current <= 0) {
             setItemQuantity(0);
+            updateCart(0);
             return;
         }
         setItemQuantity(current - 1);
@@ -69,14 +72,15 @@ function CartItem({ productId, quantity, sku, name, price, image }) {
 
     function onPlusQuantityButtonClick (e) {
         const current = parseInt(itemQuantity);
-        const currentCartCount = parseInt(cartItemCount);
         if (current >= 999) {
             setItemQuantity(999);
+            updateCart(999);
             return;
         }
         setItemQuantity(current + 1);
         updateCart(current + 1);
     }
+
 
     return (
         <div className={styles.cartItem}>
