@@ -26,7 +26,7 @@ function Cart() {
                 ) : (
                     <p>Your cart is empty.</p>
                 )}
-                <OrderSection cartContent={cartContent} />
+                <OrderSection cartContent={cartContent} setCartContent={setCartContent} />
             </div>
         </div>
     );

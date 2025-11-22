@@ -22,7 +22,7 @@ checkoutRouter.post("/", async (req, res) => {
     let order_id;
     try {
         const results = await pool.query(
-            "INSERT INTO orders (user_id, order_num) VALUES($1, $2, $3) RETURNING id",
+            "INSERT INTO orders (user_id, order_num) VALUES($1, $2) RETURNING id",
             [req.session.userId, order_num]
         )
         order_id = results.rows[0].id;
@@ -59,7 +59,7 @@ checkoutRouter.post("/", async (req, res) => {
     }
 
     try {
-        const notCleared = await clearCart(req.params.id);
+        const notCleared = await clearCart(req.session.cartId);
         if(notCleared) {
             console.log(notCleared);
             res.status(400).send("Could not clear cart");
