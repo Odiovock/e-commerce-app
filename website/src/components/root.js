@@ -45,7 +45,7 @@ function Root () {
     return (
         <>
             <Header cartItemCount={cartItemCount}/>
-            <Outlet context={{cartContent, setCartContent}}/>
+            <Outlet context={{cartContent, setCartContent, cartItemCount, setCartItemCount}}/>
         </>
     );
 }

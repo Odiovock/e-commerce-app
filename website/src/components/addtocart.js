@@ -16,12 +16,12 @@ function AddToCart ({price}) {
     }, [id]);
 
     function onQuantityInputChange (e) {
-        setQuantity(e.target.value);
-
         if (e.target.value < 1 || e.target.value === undefined || e.target.value === null) {
             setQuantity(1);
         } else if (e.target.value > 999) {
             setQuantity(999);
+        } else {
+            setQuantity(e.target.value);
         }
     }
 
