@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { formatPrice  } from "../utils";
 import styles from "../style/cart.module.css";
 
-function OrderSection ({cartContent, setCartContent}) {
+function CheckoutSection ({cartContent, setCartContent}) {
     async function onCheckoutButtonClick (e) {
         e.preventDefault();
         
@@ -12,6 +12,7 @@ function OrderSection ({cartContent, setCartContent}) {
                 headers: {
                     "content-type": "application/json"
                 },
+                body: JSON.stringify({total: cartContent.reduce((total, item) => total + item.price * item.quantity, 0)}),
                 credentials: "include",
             });
             if (response.ok) {
@@ -54,4 +55,4 @@ function OrderSection ({cartContent, setCartContent}) {
     );
 }
 
-export default OrderSection;
+export default CheckoutSection;

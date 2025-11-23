@@ -20,10 +20,11 @@ checkoutRouter.post("/", async (req, res) => {
 
     const order_num = generateOrderNumber(req.session.userId);
     let order_id;
+    let price = parseFloat(req.body.total).toFixed(2);
     try {
         const results = await pool.query(
-            "INSERT INTO orders (user_id, order_num) VALUES($1, $2) RETURNING id",
-            [req.session.userId, order_num]
+            "INSERT INTO orders (user_id, order_num, price) VALUES($1, $2, $3) RETURNING id",
+            [req.session.userId, order_num, price]
         )
         order_id = results.rows[0].id;
     } catch (error) {

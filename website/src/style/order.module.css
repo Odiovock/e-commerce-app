@@ -1,0 +1,66 @@
+/* Order component styles */
+.orderContainer {
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.orderTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+}
+
+.orderList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.orderItem {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, border 0.2s, background 0.2s;
+  cursor: pointer;
+}
+
+.orderItem:hover {
+  box-shadow: 0 4px 16px rgba(49,130,206,0.15);
+  border: 2px solid #3182ce;
+  background: #ebf8ff;
+}
+
+.orderItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.orderItemName {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #3182ce;
+}
+
+.orderItemDetails {
+  font-size: 1rem;
+  color: #4a5568;
+}
+
+.orderTotal {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #38a169;
+  margin-top: 2rem;
+  text-align: right;
+}

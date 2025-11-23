@@ -25,7 +25,7 @@ orderRouter.use("/:id", async (req, res, next) => {
 
 orderRouter.get("/", async (req, res) => {
     try {
-        const results = await pool.query("SELECT * FROM orders");
+        const results = await pool.query("SELECT * FROM orders WHERE user_id=$1", [req.session.userId]);
         const json = JSON.stringify(results.rows);
         res.status(200).send(json);
     } catch (error) {
@@ -33,10 +33,10 @@ orderRouter.get("/", async (req, res) => {
     }
 });
 
-orderRouter.get("/:id", async (req, res) => {
+orderRouter.get("/:orderId", async (req, res) => {
     try {
-        const results = await pool.query("SELECT * FROM orders WHERE id=$1", [req.params.id]);
-        const json = JSON.stringify(results.rows[0]);
+        const results = await pool.query("SELECT * FROM order_products INNER JOIN products ON order_products.product_id = products.id WHERE order_id=$1", [req.params.orderId]);
+        const json = JSON.stringify(results.rows);
         res.status(200).send(json);
     } catch (error) {
         console.error(error.toString());

@@ -19,7 +19,6 @@ function Header ({cartItemCount = 0}) {
                 <NavLink to="/home/products">Products</NavLink>
                 <NavLink to="/cart">Cart <span className={styles.cartCount}>{cartItemCount}</span></NavLink>
                 <NavLink to="/orders">Orders</NavLink>
-                <NavLink to="/account">Account</NavLink>
             </nav>
         </div>
     );
